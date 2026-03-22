@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematical Physics — Interactive</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <button id="sidebar-toggle" aria-label="Toggle sidebar">&#9776;</button>
+        <aside id="sidebar">
+            <div id="sidebar-header">
+                <h1>Mathematical Physics</h1>
+                <p class="author">Arfken-Weber-Harris / Hassani / Boas</p>
+                <div id="progress-container">
+                    <div id="progress-bar"><div id="progress-fill"></div></div>
+                    <span id="progress-text">0%</span>
+                </div>
+            </div>
+            <div id="search-container">
+                <input type="text" id="search-input" placeholder="Search topics...">
+            </div>
+            <nav id="chapter-nav"></nav>
+            <div id="sidebar-footer"><p class="copyright-notice" style="font-size:0.7rem;color:#888;margin-top:12px;text-align:center;">&copy; 2026 Hengzhe Zhao &middot; AGPL-3.0 &amp; Commercial</p>
+                <button id="reset-progress">Reset Progress</button>
+            </div>
+        </aside>
+        <main id="main-content">
+            <div id="welcome-screen">
+                <div class="welcome-hero">
+                    <h1>Mathematical Physics</h1>
+                    <h2>数学物理方法 · Interactive</h2>
+                    <p class="welcome-description">
+                        The mathematical toolkit every physicist needs. From vector calculus to
+                        group theory, from Green's functions to variational methods. See abstract
+                        mathematics come alive through physical applications and interactive visualizations.
+                    </p>
+                </div>
+                <div class="roadmap">
+                    <h3>What You'll Explore</h3>
+                    <div class="roadmap-parts">
+                        <div class="roadmap-part">
+                            <h4>Part A: Vector Analysis</h4>
+                            <ul>
+                                <li>Ch 0: Vector Calculus Review</li>
+                                <li>Ch 1: Curvilinear Coordinates</li>
+                                <li>Ch 2: Tensors</li>
+                            </ul>
+                        </div>
+                        <div class="roadmap-part">
+                            <h4>Part B: Linear Algebra for Physics</h4>
+                            <ul>
+                                <li>Ch 3: Matrices &amp; Eigenvalues</li>
+                                <li>Ch 4: Hilbert Spaces</li>
+                                <li>Ch 5: Group Theory for Physicists</li>
+                            </ul>
+                        </div>
+                        <div class="roadmap-part">
+                            <h4>Part C: Complex Analysis for Physics</h4>
+                            <ul>
+                                <li>Ch 6: Complex Functions &amp; Integration</li>
+                                <li>Ch 7: Residues &amp; Physical Applications</li>
+                            </ul>
+                        </div>
+                        <div class="roadmap-part">
+                            <h4>Part D: Differential Equations</h4>
+                            <ul>
+                                <li>Ch 8: ODEs in Physics</li>
+                                <li>Ch 9: Sturm-Liouville &amp; Eigenfunction Expansions</li>
+                                <li>Ch 10: Green's Functions</li>
+                            </ul>
+                        </div>
+                        <div class="roadmap-part">
+                            <h4>Part E: Special Functions</h4>
+                            <ul>
+                                <li>Ch 11: Bessel Functions</li>
+                                <li>Ch 12: Legendre &amp; Spherical Harmonics</li>
+                                <li>Ch 13: The Gamma &amp; Hypergeometric Functions</li>
+                            </ul>
+                        </div>
+                        <div class="roadmap-part">
+                            <h4>Part F: Transforms &amp; Variational Methods</h4>
+                            <ul>
+                                <li>Ch 14: Fourier Analysis</li>
+                                <li>Ch 15: Laplace &amp; Integral Transforms</li>
+                                <li>Ch 16: Variational Calculus</li>
+                                <li>Ch 17: PDEs of Mathematical Physics</li>
+                                <li>Ch 18: Probability &amp; Statistics in Physics</li>
+                                <li>Ch 19: Numerical Methods</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <p class="welcome-start">Select a chapter from the sidebar to begin your journey into mathematical physics!</p>
+            </div>
+            <div id="chapter-content" style="display:none;">
+                <div id="chapter-header">
+                    <div id="chapter-number-badge"></div>
+                    <h1 id="chapter-title"></h1>
+                    <p id="chapter-subtitle"></p>
+                </div>
+                <div id="section-tabs"></div>
+                <article id="section-content"></article>
+                <div id="exercises-panel" style="display:none;">
+                    <h3>Exercises</h3>
+                    <div id="exercises-list"></div>
+                </div>
+                <div id="chapter-nav-buttons">
+                    <button id="prev-btn" disabled>&larr; Previous</button>
+                    <span id="section-indicator"></span>
+                    <button id="next-btn">Next &rarr;</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script src="viz-engine.js"></script>
+
+    <script>
+    window.CHAPTER_MANIFEST = [
+        {number:0,  id:'ch00', title:'Vector Calculus Review',                     file:'ch00-vector-calculus'},
+        {number:1,  id:'ch01', title:'Curvilinear Coordinates',                    file:'ch01-curvilinear'},
+        {number:2,  id:'ch02', title:'Tensors',                                   file:'ch02-tensors'},
+        {number:3,  id:'ch03', title:'Matrices & Eigenvalues',                    file:'ch03-matrices'},
+        {number:4,  id:'ch04', title:'Hilbert Spaces',                            file:'ch04-hilbert'},
+        {number:5,  id:'ch05', title:'Group Theory for Physicists',               file:'ch05-groups'},
+        {number:6,  id:'ch06', title:'Complex Functions & Integration',            file:'ch06-complex'},
+        {number:7,  id:'ch07', title:'Residues & Physical Applications',           file:'ch07-residues'},
+        {number:8,  id:'ch08', title:'ODEs in Physics',                            file:'ch08-odes'},
+        {number:9,  id:'ch09', title:'Sturm-Liouville & Eigenfunction Expansions', file:'ch09-sturm-liouville'},
+        {number:10, id:'ch10', title:'Green\'s Functions',                         file:'ch10-greens-functions'},
+        {number:11, id:'ch11', title:'Bessel Functions',                           file:'ch11-bessel'},
+        {number:12, id:'ch12', title:'Legendre & Spherical Harmonics',             file:'ch12-legendre'},
+        {number:13, id:'ch13', title:'The Gamma & Hypergeometric Functions',       file:'ch13-gamma'},
+        {number:14, id:'ch14', title:'Fourier Analysis',                           file:'ch14-fourier'},
+        {number:15, id:'ch15', title:'Laplace & Integral Transforms',              file:'ch15-laplace'},
+        {number:16, id:'ch16', title:'Variational Calculus',                       file:'ch16-variational'},
+        {number:17, id:'ch17', title:'PDEs of Mathematical Physics',               file:'ch17-pdes'},
+        {number:18, id:'ch18', title:'Probability & Statistics in Physics',        file:'ch18-probability'},
+        {number:19, id:'ch19', title:'Numerical Methods',                          file:'ch19-numerical'},
+    ];
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>
